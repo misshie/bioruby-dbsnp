@@ -8,3 +8,5 @@
 # and put your plugin's code there. It is bad practice to write other code 
 # directly into this file, because doing so causes confusion if this biogem 
 # was ever to get merged into the main bioruby tree.
+
+require 'bio/dbsnp'
