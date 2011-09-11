@@ -13,12 +13,13 @@ require 'rake'
 
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
-  # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
+  # gem is a Gem::Specification...
+  # see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "bio-dbsnp"
   gem.homepage = "http://github.com/misshie/bioruby-dbsnp"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{decoding the dbSNP bitfield}
+  gem.description = %Q{decoding the dbSNP bitfield containg detaild information}
   gem.email = "missy@be.to"
   gem.authors = ["Hiroyuki Mishima"]
   # dependencies defined in Gemfile
