@@ -12,7 +12,7 @@ module Bio
 
       def self.parse(bitfield_str)
         byte_stream = Array.new
-        bitfield_str.chars.each_slice(2) do |byte_str|
+        bitfield_str.tr("_","").chars.each_slice(2) do |byte_str|
           byte_stream << Integer("0x#{byte_str.join("")}")
         end
       self.new(byte_stream)
@@ -37,10 +37,58 @@ module Bio
       end
 
       # field F1
-      # def resource_link
-      #   case byte_stream[
-      #   end
-      # end
+      def resource_link
+        res = Array.new
+        res << :clinical               if bit? field(1), 0b0100_0000_0000_0000
+        res << :precious               if bit? field(1), 0b0010_0000_0000_0000
+        res << :provisional_tpa        if bit? field(1), 0b0001_0000_0000_0000
+        res << :pubmed_central_article if bit? field(1), 0b0000_1000_0000_0000
+        res << :short_read_archive     if bit? field(1), 0b0000_0100_0000_0000
+        res << :organism_dblink        if bit? field(1), 0b0000_0010_0000_0000
+        res << :mgc_clone              if bit? field(1), 0b0000_0001_0000_0000
+        res << :trace_archive          if bit? field(1), 0b0000_0000_1000_0000
+        res << :assemby_archive        if bit? field(1), 0b0000_0000_0100_0000
+        res << :entrez_geo             if bit? field(1), 0b0000_0000_0010_0000
+        res << :peobe_db               if bit? field(1), 0b0000_0000_0001_0000
+        res << :entrez_gene            if bit? field(1), 0b0000_0000_0000_1000
+        res << :entrez_sts             if bit? field(1), 0b0000_0000_0000_0100
+        res << :threed_structure       if bit? field(1), 0b0000_0000_0000_0010
+        res << :submitter_link_out     if bit? field(1), 0b0000_0000_0000_0001
+        res
+      end
+
+      # field F2
+      def gene_function
+        res = Array.new
+        res << :stop_loss                 if bit? field(2), 0b0010_0000_0000_0000
+        res << :non_synonymous_frameshift if bit? field(2), 0b0001_0000_0000_0000
+        res << :non_synonymous_missense   if bit? field(2), 0b0000_1000_0000_0000
+        res << :stop_gain                 if bit? field(2), 0b0000_0100_0000_0000
+        res << :reference                 if bit? field(2), 0b0000_0010_0000_0000
+        res << :synonymous                if bit? field(2), 0b0000_0001_0000_0000
+        res << :utr_3p                    if bit? field(2), 0b0000_0000_1000_0000
+        res << :utr_5p                    if bit? field(2), 0b0000_0000_0100_0000
+        res << :acceptor_splice_site      if bit? field(2), 0b0000_0000_0010_0000
+        res << :donor_splice_site         if bit? field(2), 0b0000_0000_0001_0000
+        res << :intron                    if bit? field(2), 0b0000_0000_0000_1000
+        res << :gene_region_3p            if bit? field(2), 0b0000_0000_0000_0100
+        res << :gene_region_5p            if bit? field(2), 0b0000_0000_0000_0010
+        res << :gene_segment              if bit? field(2), 0b0000_0000_0000_0001
+        res
+      end
+
+      #field F3
+      def mapping
+        res = Array.new
+        res << :other_snp         if bit? field(3), 0b0001_0000
+        res << :assembly_conflict if bit? field(3), 0b0000_1000
+        res << :assembly_specific if bit? field(3), 0b0000_0100
+        res << :weight3           if bit? field(3), 0b0000_0011
+        res << :weight2           if bit? field(3), 0b0000_0010
+        res << :weight1           if bit? field(3), 0b0000_0001
+        res << :unmapped if (field(2) & 0b0000_0011) == 0
+        res
+      end
 
       # field F8
       def variation_class
@@ -65,7 +113,17 @@ module Bio
           raise "Should not happen! Check bitfield verison."
         end
       end
-    end
+      
+      private
 
-  end
-end
+      def bit?(subj, bit)
+        if (subj & bit) == bit
+          true
+        else
+          false
+        end
+      end
+    end # class Bitfield
+
+  end # module Dbsnp
+end #module Bio

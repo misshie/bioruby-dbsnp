@@ -56,14 +56,55 @@ describe "Dbsnp" do
       end
     end
 
-    # describe "#resource_link" do
-    #   context "given a string '050300000301040400000100' of rs55874132 for .parse" do
-    #     it "returns an array containing :threed_structure and :submitter_link_out" do
-    #       obj = Bio::Dbsnp::Bitfield.parse('050300000301040400000100')
-    #       obj.resource_link.should include(:threed_structure, :submitter_link_out)
-    #     end
-    #   end
-    # end
+    describe "#bit? (private method)" do
+      context "given (0b0010, 0b0010)" do
+        it "returns true" do
+          obj = Bio::Dbsnp::Bitfield.parse('050000000000000000000200')
+          obj.__send__(:bit?, 0b0010, 0b0010).should be_true
+        end
+      end
+
+      context "given (0b0010, 0b0111)" do
+        it "returns false" do
+          obj = Bio::Dbsnp::Bitfield.parse('050000000000000000000200')
+          obj.__send__(:bit?, 0b0010, 0b0111).should be_false
+        end
+      end
+
+      context "given (0b1111, 0b0111)" do
+        it "returns true" do
+          obj = Bio::Dbsnp::Bitfield.parse('050000000000000000000200')
+          obj.__send__(:bit?, 0b1111, 0b0111).should be_true
+        end
+      end
+    end
+
+    describe "#resource_link" do
+      context "given a string '050300000301040400000100' of rs55874132 for .parse" do
+        it "returns an array containing :threed_structure and :submitter_link_out" do
+          obj = Bio::Dbsnp::Bitfield.parse('050300000301040400000100')
+          obj.resource_link.should include(:threed_structure, :submitter_link_out)
+        end
+      end
+    end
+
+    describe "#gene_function" do
+      context "given a string '050300000301040400000100' of rs55874132 for .parse" do
+        it "returns an array containing :reference, :synonymous" do
+          obj = Bio::Dbsnp::Bitfield.parse('050300000301040400000100')
+          obj.gene_function.should include(:reference, :synonymous)
+        end
+      end
+    end
+
+    describe "#mapping" do
+      context "given a string '05_0300_0003_01_04_04_00_00_01_00' of rs55874132 for .parse" do
+        it "returns an array containing :reference, :synonymous" do
+          obj = Bio::Dbsnp::Bitfield.parse('05_0300_0003_01_04_04_00_00_01_00')
+          obj.mapping.should include(:weight1)
+        end
+      end
+    end
 
   end
 end
