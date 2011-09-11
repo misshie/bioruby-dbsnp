@@ -9,4 +9,4 @@
 # directly into this file, because doing so causes confusion if this biogem 
 # was ever to get merged into the main bioruby tree.
 
-require 'bio/dbsnp'
+require 'bio/NCBI/dbsnp'
