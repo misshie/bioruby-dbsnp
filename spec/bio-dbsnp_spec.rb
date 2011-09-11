@@ -115,16 +115,14 @@ describe "Dbsnp" do
       end
     end
 
-    # describe "#genotype [F5]" do
-    #   context "given a string '05_0300_0003_01_04_04_00_00_01_00' of rs55874132 for .parse" do
-    #     it "returns an array containing :reference, :synonymous" do
-    #       obj = Bio::NCBI::Dbsnp::Bitfield.parse('05_0300_0003_01_04_04_00_00_01_00')
-    #       obj.genotype.should include(:high_density)
-    #     end
-    #   end
-    # end
-
-
+    describe "#genotype [F5]" do
+      context "given a string '05_0300_0003_01_04_04_00_00_01_00' of rs55874132 for .parse" do
+        it "returns an array containing :reference, :synonymous" do
+          obj = Bio::NCBI::Dbsnp::Bitfield.parse('05_0300_0003_01_04_04_00_00_01_00')
+          obj.genotype.should include(:high_density)
+        end
+      end
+    end
 
   end
 end

@@ -1,1 +1,0 @@
-require 'bio/dbsnp/bitfield'

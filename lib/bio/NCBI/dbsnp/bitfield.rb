@@ -105,6 +105,16 @@ module Bio
           res
         end
 
+        # field F5
+        def genotype
+          fld = field(5)
+          res = Array.new
+          res << :high_density          if bit? fld, 0b0100
+          res << :haplotype_tagging_set if bit? fld, 0b0010
+          res << :available             if bit? fld, 0b0001
+          res
+        end
+
         # field F8
         def variation_class
           case (field(8) & 0b0000_1111)
