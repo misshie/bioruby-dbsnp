@@ -38,15 +38,6 @@ describe "Dbsnp" do
       end
     end
 
-    describe "#version" do
-      context "given a string '050000000009000110000100' for .parse" do
-        it "returns 5" do 
-          obj = Bio::NCBI::Dbsnp::Bitfield.parse('050000000009000110000100')
-          obj.version.should == 5
-        end
-      end
-    end
-
     describe "#variation_class" do
       context "given a string '050000000000000000000200' for .parse" do
         it "returns ':indel'" do
@@ -79,7 +70,16 @@ describe "Dbsnp" do
       end
     end
 
-    describe "#resource_link [F1]" do
+    describe "[F0] #version" do
+      context "given a string '050000000009000110000100' for .parse" do
+        it "returns 5" do 
+          obj = Bio::NCBI::Dbsnp::Bitfield.parse('050000000009000110000100')
+          obj.version.should == 5
+        end
+      end
+    end
+
+    describe "[F1] #resource_link" do
       context "given a string '050300000301040400000100' of rs55874132 for .parse" do
         it "returns an array containing :threed_structure and :submitter_link_out" do
           obj = Bio::NCBI::Dbsnp::Bitfield.parse('050300000301040400000100')
@@ -88,7 +88,7 @@ describe "Dbsnp" do
       end
     end
 
-    describe "#gene_function [F2]" do
+    describe "[F2] #gene_function" do
       context "given a string '050300000301040400000100' of rs55874132 for .parse" do
         it "returns an array containing :reference, :synonymous" do
           obj = Bio::NCBI::Dbsnp::Bitfield.parse('050300000301040400000100')
@@ -97,29 +97,38 @@ describe "Dbsnp" do
       end
     end
 
-    describe "#mapping [F3]" do
+    describe "[F3] #mapping" do
       context "given a string '05_0300_0003_01_04_04_00_00_01_00' of rs55874132 for .parse" do
-        it "returns an array containing :reference, :synonymous" do
+        it "returns an array containing :weight1" do
           obj = Bio::NCBI::Dbsnp::Bitfield.parse('05_0300_0003_01_04_04_00_00_01_00')
           obj.mapping.should include(:weight1)
         end
       end
     end
 
-    describe "#allele_frequency [F4]" do
+    describe "[F4] #allele_frequency" do
       context "given a string '05_0300_0003_01_04_04_00_00_01_00' of rs55874132 for .parse" do
-        it "returns an array containing :reference, :synonymous" do
+        it "returns an array containing :validated" do
           obj = Bio::NCBI::Dbsnp::Bitfield.parse('05_0300_0003_01_04_04_00_00_01_00')
           obj.allele_frequency.should include(:validated)
         end
       end
     end
 
-    describe "#genotype [F5]" do
+    describe "[F5] #genotype" do
       context "given a string '05_0300_0003_01_04_04_00_00_01_00' of rs55874132 for .parse" do
-        it "returns an array containing :reference, :synonymous" do
+        it "returns an array containing :high_density" do
           obj = Bio::NCBI::Dbsnp::Bitfield.parse('05_0300_0003_01_04_04_00_00_01_00')
           obj.genotype.should include(:high_density)
+        end
+      end
+    end
+
+    describe "[F6] #validation" do
+      context "given a string '05_0000_0000_05_03_00_10_00_01_00' of rs117577454 for .parse" do
+        it "returns an array containing :tgp_2010_pilot" do
+          obj = Bio::NCBI::Dbsnp::Bitfield.parse('05_0000_0000_05_03_00_10_00_01_00')
+          obj.validation.should include(:tgp_2010_pilot)
         end
       end
     end
