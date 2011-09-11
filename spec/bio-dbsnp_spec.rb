@@ -38,16 +38,7 @@ describe "Dbsnp" do
       end
     end
 
-    describe "#variation_class" do
-      context "given a string '050000000000000000000200' for .parse" do
-        it "returns ':indel'" do
-          obj = Bio::NCBI::Dbsnp::Bitfield.parse('050000000000000000000200')
-          obj.variation_class.should == :indel
-        end
-      end
-    end
-
-    describe "#bit? (private method)" do
+   describe "#bit? (private method)" do
       context "given (0b0010, 0b0010)" do
         it "returns true" do
           obj = Bio::NCBI::Dbsnp::Bitfield.parse('050000000000000000000200')
@@ -133,5 +124,34 @@ describe "Dbsnp" do
       end
     end
 
+    describe "[F7] #phenotype" do
+      context "given a string '05_0128_0000_01_03_05_12_02_01_00' of rs3934834 for .parse" do
+        it "returns an array containing :tpa_gwas_page" do
+          obj = Bio::NCBI::Dbsnp::Bitfield.parse('05_0128_0000_01_03_05_12_02_01_00')
+          obj.phenotype.should include(:tpa_gwas_page)
+        end
+      end
+    end
+
+    describe "[F8] #variation_class" do
+      context "given a string '05_0000_0000_00_00_00_00_00_02_00' for .parse" do
+        it "returns ':indel'" do
+          obj = Bio::NCBI::Dbsnp::Bitfield.parse('05_0000_0000_00_00_00_00_00_02_00')
+          obj.variation_class.should == :dips
+        end
+      end
+    end
+
+    describe "[F9] #quality_check" do
+      context "given a string '05_0000_0000_01_00_00_10_00_01_40' of rs62637813 for .parse" do
+        it "returns ':indel'" do
+          obj = Bio::NCBI::Dbsnp::Bitfield.parse('05_0000_0000_01_00_00_10_00_01_40')
+          # 0x40 = 0b0100_0000
+          obj.variation_class.should include(:suspect)
+        end
+      end
+    end
+
+ 
   end
 end

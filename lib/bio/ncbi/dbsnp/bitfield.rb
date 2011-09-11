@@ -129,13 +129,28 @@ module Bio
           res
         end
 
+        # field F7
+        def phenotype
+          fld = field(7)
+          res = Array.new
+          res << :mesh_disease            if bit? fld, 0b1000_0000
+          res << :clinical_diagnosis      if bit? fld, 0b0100_0000
+          res << :transciption_factor     if bit? fld, 0b0010_0000
+          res << :locus_specific_database if bit? fld, 0b0001_0000
+          res << :dbgap_p_valued          if bit? fld, 0b0000_1000
+          res << :dbgap_lod               if bit? fld, 0b0000_0100
+          res << :tpa_gwas_page           if bit? fld, 0b0000_0010
+          res << :omim_omia               if bit? fld, 0b0000_0001
+          res
+        end
+
         # field F8
         def variation_class
           case (field(8) & 0b0000_1111)
           when 0b0001
             :snp
           when 0b0010
-          :indel
+            :dips
           when 0b0011
             :heterozygous
           when 0b0100
@@ -153,6 +168,19 @@ module Bio
           end
         end
       
+       # field F9
+        def quality_check
+          res = Array.new
+          res << :suspect                           if bit? fld, 0b00_0000_0100_0000
+          res << :somatic                           if bit? fld, 0b00_0000_0010_0000
+          res << :reference_allele_missing          if bit? fld, 0b00_0000_0001_0000
+          res << :withdrawn_by_submitter            if bit? fld, 0b00_0000_0000_1000
+          res << :no_allele_overlap                 if bit? fld, 0b00_0000_0000_0100
+          res << :strain_specific_fiexed_defference if bit? fld, 0b00_0000_0000_0010
+          res << :genotype_conflict                 if bit? fld, 0b00_0000_0000_0001
+          res
+        end
+
         private
 
         def bit?(subj, bit)
