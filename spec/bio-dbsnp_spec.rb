@@ -144,14 +144,13 @@ describe "Dbsnp" do
 
     describe "[F9] #quality_check" do
       context "given a string '05_0000_0000_01_00_00_10_00_01_40' of rs62637813 for .parse" do
-        it "returns ':indel'" do
+        it "returns an array containing ':suspect'" do
           obj = Bio::NCBI::Dbsnp::Bitfield.parse('05_0000_0000_01_00_00_10_00_01_40')
           # 0x40 = 0b0100_0000
-          obj.variation_class.should include(:suspect)
+          obj.quality_check.should include(:suspect)
         end
       end
     end
-
  
   end
 end

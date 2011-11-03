@@ -170,6 +170,7 @@ module Bio
       
        # field F9
         def quality_check
+          fld = field(9)
           res = Array.new
           res << :suspect                           if bit? fld, 0b00_0000_0100_0000
           res << :somatic                           if bit? fld, 0b00_0000_0010_0000

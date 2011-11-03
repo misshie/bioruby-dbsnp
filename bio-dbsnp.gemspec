@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{bio-dbsnp}
-  s.version = "0.0.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Hiroyuki Mishima}]
-  s.date = %q{2011-09-10}
-  s.description = %q{TODO: longer description of your gem}
+  s.date = %q{2011-11-03}
+  s.description = %q{decoding the dbSNP bitfield containg detaild information}
   s.email = %q{missy@be.to}
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -20,11 +20,15 @@ Gem::Specification.new do |s|
     ".document",
     ".rspec",
     "Gemfile",
+    "Gemfile.lock",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "bio-dbsnp.gemspec",
     "lib/bio-dbsnp.rb",
+    "lib/bio/ncbi/dbsnp.rb",
+    "lib/bio/ncbi/dbsnp/bitfield.rb",
     "spec/bio-dbsnp_spec.rb",
     "spec/spec_helper.rb"
   ]
@@ -32,7 +36,7 @@ Gem::Specification.new do |s|
   s.licenses = [%q{MIT}]
   s.require_paths = [%q{lib}]
   s.rubygems_version = %q{1.8.6}
-  s.summary = %q{TODO: one-line summary of your gem}
+  s.summary = %q{decoding the dbSNP bitfield}
 
   if s.respond_to? :specification_version then
     s.specification_version = 3

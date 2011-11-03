@@ -5,7 +5,7 @@ A library to decode "bitfield" information in dbSNP. In VCF format, bitfiled is 
 Further details of the format is shown in ftp://ftp.ncbi.nlm.nih.gov/snp/specs/dbSNP_BitField_latest.pdf  
 
 = how to install
-to be uploaded into the RubyGems.
+ gem install bio-dbsnp
 
 = how to use
  require 'bio-dbsnp'
@@ -20,5 +20,4 @@ See lib/bio/ncbi/dbsnp/bitfield.rb for implementation. spec/bio-dbsnp_spec.rb al
 == Copyright
 
 Copyright (c) 2011 Hiroyuki Mishima (missy at be.to, @mishimahryk at Twitter).
-See LICENSE.txt for further details.
-
+See LICENSE.txt (the MIT Licence) for further details.
